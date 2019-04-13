@@ -10,13 +10,14 @@ jobs:
         - yarn test
     - # stage name not required, will continue to use `test`
       script:
-        - cd ../server
+        - cd server
         - yarn install
         - yarn test
     - stage: build
       script:
+        - cd web
         - yarn build
-    - # stage name not required, will continue to use `test`
+    - # stage name not required, will continue to use `build`
       script:
-        - cd ../web
+        - cd server
         - yarn build
