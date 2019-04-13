@@ -7,5 +7,6 @@ script:
   - yarn test
   - yarn run build
   - cd ../server
+  - yarn install
   - yarn test
   - yarn build
