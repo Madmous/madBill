@@ -16,8 +16,10 @@ jobs:
     - stage: build
       script:
         - cd web
+        - yarn install
         - yarn build
     - # stage name not required, will continue to use `build`
       script:
         - cd server
+        - yarn install
         - yarn build
