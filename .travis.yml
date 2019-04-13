@@ -4,12 +4,12 @@ node_js:
 
 cache: yarn
 
-install:
-  - yarn global add lerna
-  - lerna bootstrap
-
 jobs:
   include:
+    - stage: dependencies
+      script: 
+        - yarn global add lerna
+        - lerna bootstrap
     - stage: tests
       script:
         - cd packages/web
