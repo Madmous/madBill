@@ -1,12 +1,22 @@
 language: node_js
 node_js:
   - "10.13.0"
-script:
-  - cd web
-  - yarn install
-  - yarn test
-  - yarn run build
-  - cd ../server
-  - yarn install
-  - yarn test
-  - yarn build
+jobs:
+  include:
+    - stage: tests
+      script:
+        - cd web
+        - yarn install
+        - yarn test
+    - # stage name not required, will continue to use `test`
+      script:
+        - cd ../server
+        - yarn install
+        - yarn test
+    - stage: build
+      script:
+        - yarn build
+    - # stage name not required, will continue to use `test`
+      script:
+        - cd ../web
+        - yarn build
