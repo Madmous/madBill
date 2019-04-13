@@ -1,7 +1,9 @@
 language: node_js
 node_js:
   - "10.13.0"
-cache: madBill
+cache:
+  directories:
+    - $HOME/madBill/
 jobs:
   include:
     - stage: prepare cache
