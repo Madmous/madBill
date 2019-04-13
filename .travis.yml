@@ -1,6 +1,10 @@
 language: node_js
 node_js:
   - "10.13.0"
+cache:
+  directories:
+    - web/node_modules
+    - server/node_modules
 jobs:
   include:
     - stage: tests
@@ -16,10 +20,8 @@ jobs:
     - stage: build
       script:
         - cd web
-        - yarn install
         - yarn build
     - # stage name not required, will continue to use `build`
       script:
         - cd server
-        - yarn install
         - yarn build
