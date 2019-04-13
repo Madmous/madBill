@@ -1,45 +1,18 @@
 language: node_js
+
 node_js:
   - "10.13.0"
-cache:
-  directories:
-    - $HOME/madBill/
-jobs:
-  include:
-    - stage: prepare cache
-      script: true
-    - stage: dependencies
-      name: Dependencies
-      script: 
-        - yarn global add lerna
-        - lerna bootstrap
-    - stage: tests
-      name: Web
-      script:
-        - cd packages/web
-        - yarn test
-    - # stage name not required, will continue to use `test`
-      name: Server
-      script:
-        - cd packages/server
-        - yarn test
-    - stage: builds
-      name: Web
-      script:
-        - cd packages/web
-        - yarn build
-    - # stage name not required, will continue to use `test`
-      name: Server
-      script:
-        - cd packages/server
-        - yarn build
 
-# matrix:
-#   include:
-#   - name: Web
-#     env: PACKAGE_LOCATION=packages/web PACKAGE_NAME=web
-#   - name: Server
-#     env: PACKAGE_LOCATION=packages/server PACKAGE_NAME=server
+install:
+  - yarn global add lerna
+  - lerna bootstrap
+
+matrix:
+  include:
+  - name: Web
+    env: PACKAGE_LOCATION=packages/web PACKAGE_NAME=web
+  - name: Server
+    env: PACKAGE_LOCATION=packages/server PACKAGE_NAME=server
 
 script:
   - cd $PACKAGE_LOCATION
