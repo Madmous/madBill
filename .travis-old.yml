@@ -1,0 +1,21 @@
+language: node_js
+node_js:
+  - "10.13.0"
+
+cache: yarn
+
+install:
+  - yarn global add lerna
+  - lerna bootstrap
+
+matrix:
+  include:
+  - name: Web
+    env: PACKAGE_LOCATION=packages/web PACKAGE_NAME=web
+  - name: Server
+    env: PACKAGE_LOCATION=packages/server PACKAGE_NAME=server
+
+script:
+  - cd $PACKAGE_LOCATION
+  - yarn test
+  - yarn build
