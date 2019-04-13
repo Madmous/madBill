@@ -1,11 +1,11 @@
 language: node_js
 node_js:
   - "10.13.0"
-cache:
-  directories:
-    - "madBill"
+cache: madBill
 jobs:
   include:
+    - stage: prepare cache
+      script: true
     - stage: dependencies
       name: Dependencies
       script: 
