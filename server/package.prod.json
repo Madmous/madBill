@@ -2,8 +2,8 @@
   "name": "mad-bill",
   "version": "1.0.0",
   "description": "",
-  "main": "src/server.ts",
+  "main": "src/server.js",
   "scripts": {
-    "start": "node server.ts"
+    "start": "node server.js"
   }
 }
