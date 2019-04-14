@@ -5,8 +5,8 @@
   "main": "src/server.ts",
   "scripts": {
     "prebuild": "tslint -c tslint.json -p tsconfig.json --fix",
-    "build": "rm -rf dist && tsc && cp Procfile dist/Procfile && cp package.json dist/package.json",
-    "start": "node dist/server.ts",
+    "build": "rm -rf build && tsc",
+    "start": "node build/server.js",
     "start:dev": "ts-node src/server.ts",
     "dev": "./node_modules/nodemon/bin/nodemon.js",
     "pretest": "rm -rf ./src/__tests__/*.csv && rm -rf ./src/__tests__/*.txt",
