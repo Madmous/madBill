@@ -1,8 +1,8 @@
 import router from "./index";
 import logger from "./logger";
 
-const port = 8080;
+const port = process.env.PORT || 3000;
 
 router.listen(port, () => {
-  logger.info(`server started at http://localhost:${port}`);
+  logger.info(`Listening on ${port}`);
 });
