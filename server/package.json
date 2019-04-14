@@ -1,12 +1,13 @@
 {
-  "name": "github-to-csv",
+  "name": "mad-bill",
   "version": "1.0.0",
   "description": "",
   "main": "src/server.ts",
   "scripts": {
     "prebuild": "tslint -c tslint.json -p tsconfig.json --fix",
-    "build": "tsc",
-    "start": "ts-node src/server.ts",
+    "build": "rm -rf dist && tsc && cp package.prod.json dist/package.json",
+    "start": "node dist/server.ts",
+    "start:dev": "ts-node src/server.ts",
     "dev": "./node_modules/nodemon/bin/nodemon.js",
     "pretest": "rm -rf ./src/__tests__/*.csv && rm -rf ./src/__tests__/*.txt",
     "test": "jest --config jest.config.json",
@@ -29,10 +30,12 @@
     "@types/winston": "^2.4.4",
     "jest": "^23.6.0",
     "nodemon": "^1.18.9",
+    "prettier": "^1.17.0",
     "supertest": "^3.4.2",
     "ts-jest": "^23.10.5",
     "ts-node": "^8.0.1",
     "tslint": "^5.12.1",
+    "tslint-config-prettier": "^1.18.0",
     "typescript": "^3.2.4"
   }
 }
