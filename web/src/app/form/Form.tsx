@@ -1,0 +1,183 @@
+import TextField from '@material-ui/core/TextField';
+import React, { ChangeEvent } from 'react';
+import styled from 'styled-components';
+
+const Form = styled.div`
+  padding: 0.25em 1em;
+`;
+
+const Form_Line = styled.div`
+  display: flex;
+`;
+
+const Form_Line_Flex = styled(Form_Line)`
+  flex: 1;
+`;
+
+const Form_Line_Flex_Margin = styled(Form_Line_Flex)`
+  margin-right: 1em;
+`;
+
+const Input = styled(props => <TextField {...props} />)`
+  flex: 1;
+`;
+
+export type Props = {
+  values: {
+    from: string;
+    billTo: string;
+    shipTo: string;
+    invoiceNumber: string;
+    invoiceDate: string;
+    dueDate: string;
+    quantity: string;
+    description: string;
+    unitPrice: string;
+    amount: string;
+  };
+  handleChange: (event: ChangeEvent<HTMLTextAreaElement>) => void;
+  setFieldTouched: (field: string, isTouched?: boolean, shouldValidate?: boolean) => void;
+};
+
+export default (props: Props) => {
+  return (
+    <Form>
+      <Form_Line>
+        <Input
+          id="from"
+          label="From"
+          value={props.values.from}
+          onChange={(event: ChangeEvent<HTMLTextAreaElement>) => {
+            props.handleChange(event);
+            props.setFieldTouched('from', true, false);
+          }}
+          margin="normal"
+        />
+      </Form_Line>
+      <Form_Line>
+        <Input
+          id="billTo"
+          label="Bill to"
+          value={props.values.billTo}
+          onChange={(event: ChangeEvent<HTMLTextAreaElement>) => {
+            props.handleChange(event);
+            props.setFieldTouched('billTo', true, false);
+          }}
+          margin="normal"
+        />
+      </Form_Line>
+      <Form_Line>
+        <Input
+          id="shipTo"
+          label="Ship to"
+          value={props.values.shipTo}
+          onChange={(event: ChangeEvent<HTMLTextAreaElement>) => {
+            props.handleChange(event);
+            props.setFieldTouched('shipTo', true, false);
+          }}
+          margin="normal"
+        />
+      </Form_Line>
+      <Form_Line>
+        <Input
+          id="invoiceNumber"
+          label="Invoice number"
+          value={props.values.invoiceNumber}
+          onChange={(event: ChangeEvent<HTMLTextAreaElement>) => {
+            props.handleChange(event);
+            props.setFieldTouched('invoiceNumber', true, false);
+          }}
+          margin="normal"
+        />
+      </Form_Line>
+      <Form_Line>
+        <Input
+          id="invoiceDate"
+          label="Invoice date"
+          type="date"
+          InputLabelProps={{
+            shrink: true,
+          }}
+          value={props.values.invoiceDate}
+          onChange={(event: ChangeEvent<HTMLTextAreaElement>) => {
+            props.handleChange(event);
+            props.setFieldTouched('invoiceDate', true, false);
+          }}
+          margin="normal"
+        />
+      </Form_Line>
+      <Form_Line>
+        <Input
+          id="dueDate"
+          label="due date"
+          type="date"
+          InputLabelProps={{
+            shrink: true,
+          }}
+          value={props.values.dueDate}
+          onChange={(event: ChangeEvent<HTMLTextAreaElement>) => {
+            props.handleChange(event);
+            props.setFieldTouched('dueDate', true, false);
+          }}
+          margin="normal"
+        />
+      </Form_Line>
+      <Form_Line>
+        <Input
+          id="description"
+          label="Description"
+          value={props.values.description}
+          onChange={(event: ChangeEvent<HTMLTextAreaElement>) => {
+            props.handleChange(event);
+            props.setFieldTouched('description', true, false);
+          }}
+          margin="normal"
+        />
+      </Form_Line>
+      <Form_Line>
+        <Form_Line_Flex_Margin>
+          <Input
+            id="quantity"
+            label="Quantity"
+            type="number"
+            InputProps={{ inputProps: { min: 1 } }}
+            value={props.values.quantity}
+            onChange={(event: ChangeEvent<HTMLTextAreaElement>) => {
+              props.handleChange(event);
+              props.setFieldTouched('quantity', true, false);
+            }}
+            margin="normal"
+          />
+        </Form_Line_Flex_Margin>
+        <Form_Line_Flex_Margin>
+          <Input
+            id="unitPrice"
+            label="Unit price"
+            type="number"
+            InputProps={{ inputProps: { min: 1 } }}
+            value={props.values.unitPrice}
+            onChange={(event: ChangeEvent<HTMLTextAreaElement>) => {
+              props.handleChange(event);
+              props.setFieldTouched('unitPrice', true, false);
+            }}
+            margin="normal"
+          />
+        </Form_Line_Flex_Margin>
+        <Form_Line_Flex>
+          <Input
+            id="amount"
+            label="Amount"
+            type="number"
+            InputProps={{ inputProps: { min: 1 } }}
+            value={props.values.amount}
+            onChange={(event: ChangeEvent<HTMLTextAreaElement>) => {
+              props.handleChange(event);
+              props.setFieldTouched('amount', true, false);
+            }}
+            margin="normal"
+          />
+        </Form_Line_Flex>
+      </Form_Line>
+    </Form>
+  );
+};
