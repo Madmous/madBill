@@ -1,11 +1,26 @@
 import React from 'react';
-import { Formik } from 'formik';
+import { Formik, FormikProps, FormikActions } from 'formik';
 import * as Yup from 'yup';
 
 import Form from './Form';
 
+export type FormValues = {
+  from: string,
+  billTo: string,
+  shipTo: string,
+  invoiceNumber: string,
+  invoiceDate: string,
+  dueDate: string,
+  quantity: string,
+  description: string,
+  unitPrice: string,
+  amount: string,
+};
+
+export type Props = FormikProps<FormValues>;
+
 export default () => {
-  const initialValues = {
+  const initialValues: FormValues = {
     from: '',
     billTo: '',
     shipTo: '',
@@ -34,9 +49,9 @@ export default () => {
   return (
     <Formik
       initialValues={initialValues}
-      render={props => <Form {...props} />}
+      render={(props: Props) => <Form {...props} />}
       validationSchema={validationSchema}
-      onSubmit={(values, actions) => {
+      onSubmit={(values: FormValues, actions: FormikActions<FormValues>) => {
         setTimeout(() => {
           alert(JSON.stringify(values, null, 2));
           actions.setSubmitting(false);

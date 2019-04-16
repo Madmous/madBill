@@ -2,6 +2,8 @@ import TextField from '@material-ui/core/TextField';
 import React, { ChangeEvent } from 'react';
 import styled from 'styled-components';
 
+import { Props, FormValues } from './index';
+
 const Form = styled.div`
   padding: 0.25em 1em;
 `;
@@ -22,47 +24,23 @@ const Input = styled(props => <TextField {...props} />)`
   flex: 1;
 `;
 
-export type Props = {
-  values: {
-    from: string;
-    billTo: string;
-    shipTo: string;
-    invoiceNumber: string;
-    invoiceDate: string;
-    dueDate: string;
-    quantity: string;
-    description: string;
-    unitPrice: string;
-    amount: string;
-  };
-  handleChange: (event: ChangeEvent<HTMLTextAreaElement>) => void;
-  setFieldTouched: (field: string, isTouched?: boolean, shouldValidate?: boolean) => void;
-};
-
 export default (props: Props) => {
+  const handleChange = (field: keyof FormValues) => (event: ChangeEvent<HTMLTextAreaElement>) => {
+    props.handleChange(event);
+    props.setFieldTouched(field, true, false);
+  };
+
   return (
     <Form>
       <Form_Line>
-        <Input
-          id="from"
-          label="From"
-          value={props.values.from}
-          onChange={(event: ChangeEvent<HTMLTextAreaElement>) => {
-            props.handleChange(event);
-            props.setFieldTouched('from', true, false);
-          }}
-          margin="normal"
-        />
+        <Input id="from" label="From" value={props.values.from} onChange={handleChange('from')} margin="normal" />
       </Form_Line>
       <Form_Line>
         <Input
           id="billTo"
           label="Bill to"
           value={props.values.billTo}
-          onChange={(event: ChangeEvent<HTMLTextAreaElement>) => {
-            props.handleChange(event);
-            props.setFieldTouched('billTo', true, false);
-          }}
+          onChange={handleChange('billTo')}
           margin="normal"
         />
       </Form_Line>
@@ -71,10 +49,7 @@ export default (props: Props) => {
           id="shipTo"
           label="Ship to"
           value={props.values.shipTo}
-          onChange={(event: ChangeEvent<HTMLTextAreaElement>) => {
-            props.handleChange(event);
-            props.setFieldTouched('shipTo', true, false);
-          }}
+          onChange={handleChange('shipTo')}
           margin="normal"
         />
       </Form_Line>
@@ -83,10 +58,7 @@ export default (props: Props) => {
           id="invoiceNumber"
           label="Invoice number"
           value={props.values.invoiceNumber}
-          onChange={(event: ChangeEvent<HTMLTextAreaElement>) => {
-            props.handleChange(event);
-            props.setFieldTouched('invoiceNumber', true, false);
-          }}
+          onChange={handleChange('invoiceNumber')}
           margin="normal"
         />
       </Form_Line>
@@ -99,10 +71,7 @@ export default (props: Props) => {
             shrink: true,
           }}
           value={props.values.invoiceDate}
-          onChange={(event: ChangeEvent<HTMLTextAreaElement>) => {
-            props.handleChange(event);
-            props.setFieldTouched('invoiceDate', true, false);
-          }}
+          onChange={handleChange('invoiceDate')}
           margin="normal"
         />
       </Form_Line>
@@ -115,10 +84,7 @@ export default (props: Props) => {
             shrink: true,
           }}
           value={props.values.dueDate}
-          onChange={(event: ChangeEvent<HTMLTextAreaElement>) => {
-            props.handleChange(event);
-            props.setFieldTouched('dueDate', true, false);
-          }}
+          onChange={handleChange('dueDate')}
           margin="normal"
         />
       </Form_Line>
@@ -127,10 +93,7 @@ export default (props: Props) => {
           id="description"
           label="Description"
           value={props.values.description}
-          onChange={(event: ChangeEvent<HTMLTextAreaElement>) => {
-            props.handleChange(event);
-            props.setFieldTouched('description', true, false);
-          }}
+          onChange={handleChange('description')}
           margin="normal"
         />
       </Form_Line>
@@ -142,10 +105,7 @@ export default (props: Props) => {
             type="number"
             InputProps={{ inputProps: { min: 1 } }}
             value={props.values.quantity}
-            onChange={(event: ChangeEvent<HTMLTextAreaElement>) => {
-              props.handleChange(event);
-              props.setFieldTouched('quantity', true, false);
-            }}
+            onChange={handleChange('quantity')}
             margin="normal"
           />
         </Form_Line_Flex_Margin>
@@ -156,10 +116,7 @@ export default (props: Props) => {
             type="number"
             InputProps={{ inputProps: { min: 1 } }}
             value={props.values.unitPrice}
-            onChange={(event: ChangeEvent<HTMLTextAreaElement>) => {
-              props.handleChange(event);
-              props.setFieldTouched('unitPrice', true, false);
-            }}
+            onChange={handleChange('unitPrice')}
             margin="normal"
           />
         </Form_Line_Flex_Margin>
@@ -170,10 +127,7 @@ export default (props: Props) => {
             type="number"
             InputProps={{ inputProps: { min: 1 } }}
             value={props.values.amount}
-            onChange={(event: ChangeEvent<HTMLTextAreaElement>) => {
-              props.handleChange(event);
-              props.setFieldTouched('amount', true, false);
-            }}
+            onChange={handleChange('amount')}
             margin="normal"
           />
         </Form_Line_Flex>
