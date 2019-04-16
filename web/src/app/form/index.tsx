@@ -5,16 +5,13 @@ import * as Yup from 'yup';
 import Form from './Form';
 
 export type FormValues = {
-  from: string,
-  billTo: string,
-  shipTo: string,
-  invoiceNumber: string,
-  invoiceDate: string,
-  dueDate: string,
-  quantity: string,
-  description: string,
-  unitPrice: string,
-  amount: string,
+  from: string;
+  billTo: string;
+  shipTo: string;
+  invoiceNumber: string;
+  invoiceDate: string;
+  dueDate: string;
+  items: [{ description: string; quantity: string; unitPrice: string; amount: string }];
 };
 
 export type Props = FormikProps<FormValues>;
@@ -27,10 +24,7 @@ export default () => {
     invoiceNumber: '',
     invoiceDate: '',
     dueDate: '',
-    quantity: '',
-    description: '',
-    unitPrice: '',
-    amount: '',
+    items: [{ description: '', quantity: '', unitPrice: '', amount: '' }],
   };
 
   const validationSchema = Yup.object({
@@ -40,10 +34,12 @@ export default () => {
     invoiceNumber: Yup.string().required('Invoice number is required'),
     invoiceDate: Yup.string().required('Invoice date is required'),
     dueDate: Yup.string().required('Due date is required'),
-    quantity: Yup.string().required('Quantity is required'),
-    description: Yup.string().required('Description is required'),
-    unitPrice: Yup.string().required('Unit price is required'),
-    amount: Yup.string().required('Amount is required'),
+    items: Yup.object().shape({
+      quantity: Yup.string().required('Quantity is required'),
+      description: Yup.string().required('Description is required'),
+      unitPrice: Yup.string().required('Unit price is required'),
+      amount: Yup.string().required('Amount is required'),
+    }),
   });
 
   return (

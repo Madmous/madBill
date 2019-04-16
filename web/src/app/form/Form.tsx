@@ -1,5 +1,5 @@
 import TextField from '@material-ui/core/TextField';
-import React, { ChangeEvent } from 'react';
+import React, { ChangeEvent, Fragment } from 'react';
 import styled from 'styled-components';
 
 import { Props, FormValues } from './index';
@@ -88,50 +88,54 @@ export default (props: Props) => {
           margin="normal"
         />
       </Form_Line>
-      <Form_Line>
-        <Input
-          id="description"
-          label="Description"
-          value={props.values.description}
-          onChange={handleChange('description')}
-          margin="normal"
-        />
-      </Form_Line>
-      <Form_Line>
-        <Form_Line_Flex_Margin>
-          <Input
-            id="quantity"
-            label="Quantity"
-            type="number"
-            InputProps={{ inputProps: { min: 1 } }}
-            value={props.values.quantity}
-            onChange={handleChange('quantity')}
-            margin="normal"
-          />
-        </Form_Line_Flex_Margin>
-        <Form_Line_Flex_Margin>
-          <Input
-            id="unitPrice"
-            label="Unit price"
-            type="number"
-            InputProps={{ inputProps: { min: 1 } }}
-            value={props.values.unitPrice}
-            onChange={handleChange('unitPrice')}
-            margin="normal"
-          />
-        </Form_Line_Flex_Margin>
-        <Form_Line_Flex>
-          <Input
-            id="amount"
-            label="Amount"
-            type="number"
-            InputProps={{ inputProps: { min: 1 } }}
-            value={props.values.amount}
-            onChange={handleChange('amount')}
-            margin="normal"
-          />
-        </Form_Line_Flex>
-      </Form_Line>
+      {props.values.items.map((item, index) => (
+        <Fragment key={index}>
+          <Form_Line>
+            <Input
+              id={`items[${index}].description`}
+              label="Description"
+              value={item.description}
+              onChange={handleChange('items')}
+              margin="normal"
+            />
+          </Form_Line>
+          <Form_Line>
+            <Form_Line_Flex_Margin>
+              <Input
+                id={`items[${index}].quantity`}
+                label="Quantity"
+                type="number"
+                InputProps={{ inputProps: { min: 1 } }}
+                value={item.quantity}
+                onChange={handleChange('items')}
+                margin="normal"
+              />
+            </Form_Line_Flex_Margin>
+            <Form_Line_Flex_Margin>
+              <Input
+                id={`items[${index}].unitPrice`}
+                label="Unit price"
+                type="number"
+                InputProps={{ inputProps: { min: 1 } }}
+                value={item.unitPrice}
+                onChange={handleChange('items')}
+                margin="normal"
+              />
+            </Form_Line_Flex_Margin>
+            <Form_Line_Flex>
+              <Input
+                id={`items[${index}].amount`}
+                label="Amount"
+                type="number"
+                InputProps={{ inputProps: { min: 1 } }}
+                value={item.amount}
+                onChange={handleChange('items')}
+                margin="normal"
+              />
+            </Form_Line_Flex>
+          </Form_Line>
+        </Fragment>
+      ))}
     </Form>
   );
 };
