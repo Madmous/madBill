@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Formik, FormikProps, FormikActions } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
 
+import Auth from '../Auth/Auth';
 import Form from './Form';
 import { calculateTotal } from '../../price/total';
 
@@ -64,19 +65,25 @@ const validationSchema = Yup.object({
     .min(1, 'Minimum of 1 items'),
 });
 
-export default () => (
-  <Formik
-    initialValues={initialValues}
-    render={(props: FormProps) => {
-      const total = calculateTotal(props.values.items);
+export default (props: any) => {
+  if (!props.auth.isAuthenticated()) {
+    props.auth.login();
+  }
 
-      return <Form {...props} total={total} />;
-    }}
-    validationSchema={validationSchema}
-    onSubmit={async (values: FormValues, _: FormikActions<FormValues>) => {
-      const res = await axios.post(`${process.env.REACT_APP_SERVER_URL}/save-invoice`, values);
+  return (
+    <Formik
+      initialValues={initialValues}
+      render={(props: FormProps) => {
+        const total = calculateTotal(props.values.items);
 
-      alert(res.status);
-    }}
-  />
-);
+        return <Form {...props} total={total} />;
+      }}
+      validationSchema={validationSchema}
+      onSubmit={async (values: FormValues, _: FormikActions<FormValues>) => {
+        const res = await axios.post(`${process.env.REACT_APP_SERVER_URL}/save-invoice`, values);
+
+        alert(res.status);
+      }}
+    />
+  );
+};
