@@ -5,7 +5,6 @@ import axios from 'axios';
 
 import Form from './Form';
 import { calculateTotal } from '../../price/total';
-import { getServerUrl } from '../../config';
 
 export type Item = { description: string; quantity: string; unitPrice: string; amount: string };
 
@@ -74,8 +73,8 @@ export default () => (
       return <Form {...props} total={total} />;
     }}
     validationSchema={validationSchema}
-    onSubmit={async (values: FormValues, actions: FormikActions<FormValues>) => {
-      const res = await axios.post(`${getServerUrl()}/save-invoice`, values);
+    onSubmit={async (values: FormValues, _: FormikActions<FormValues>) => {
+      const res = await axios.post(`${process.env.REACT_APP_SERVER_URL}/save-invoice`, values);
 
       alert(res.status);
     }}
