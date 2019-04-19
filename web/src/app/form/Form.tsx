@@ -55,7 +55,7 @@ export default (props: Props) => {
       <form
         onSubmit={e => {
           e.preventDefault();
-          props.handleSubmit(e, props.total)
+          props.handleSubmit(e);
         }}
       >
         <Form_Line>
