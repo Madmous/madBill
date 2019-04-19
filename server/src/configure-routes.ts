@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import invoiceResponseHandler from './invoice-handler';
-import createValidatePayload, { reqLogger } from './invoice-middleware';
+import createValidatePayload from './invoice-middleware';
 import schema from './invoice-schema';
 
 const validatePayload = createValidatePayload(schema);

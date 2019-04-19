@@ -17,12 +17,3 @@ export default (schema: Schema) => (
     }
   });
 };
-
-export const reqLogger = (
-  req: Request,
-  _: Response,
-  next: NextFunction
-) => {
-  logger.info(`Requesting ${req.method} on ${req.path}`);
-  next();
-};
