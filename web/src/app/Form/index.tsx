@@ -1,9 +1,11 @@
 import React from 'react';
 import { Formik, FormikProps, FormikActions } from 'formik';
 import * as Yup from 'yup';
+import axios from 'axios';
 
 import Form from './Form';
 import { calculateTotal } from '../../price/total';
+import { getServerUrl } from '../../config';
 
 export type Item = { description: string; quantity: string; unitPrice: string; amount: string };
 
@@ -72,8 +74,10 @@ export default () => (
       return <Form {...props} total={total} />;
     }}
     validationSchema={validationSchema}
-    onSubmit={(values: FormValues, actions: FormikActions<FormValues>) => {
-      console.log(values);
+    onSubmit={async (values: FormValues, actions: FormikActions<FormValues>) => {
+      const res = await axios.post(`${getServerUrl()}/save-invoice`, values);
+
+      alert(res.status);
     }}
   />
 );

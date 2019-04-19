@@ -1,6 +1,8 @@
 import { NextFunction, Request, Response } from 'express';
 import Joi, { Schema } from 'joi';
 
+import logger from "./logger";
+
 export default (schema: Schema) => (
   req: Request,
   res: Response,
@@ -14,4 +16,13 @@ export default (schema: Schema) => (
       next();
     }
   });
+};
+
+export const reqLogger = (
+  req: Request,
+  _: Response,
+  next: NextFunction
+) => {
+  logger.info(`Requesting ${req.method} on ${req.path}`);
+  next();
 };
