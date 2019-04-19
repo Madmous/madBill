@@ -17,6 +17,8 @@ export type FormValues = {
   items: Item[];
 };
 
+export type Label = keyof FormValues;
+
 export type FormProps = FormikProps<FormValues>;
 
 const initialValues: FormValues = {
