@@ -61,8 +61,6 @@ export default (props: Props) => {
   const handleChange = createHandleChange(props);
   const { items } = props.values;
 
-  console.log(props);
-
   return (
     <Form>
       <form
