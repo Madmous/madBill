@@ -13,19 +13,15 @@ export type Props = {
 
 export default (props: Props) => {
   return (
-    <Fragment>
-      <Form_Line>
-        <Input
-          id={props.id}
-          label={props.label}
-          value={props.value}
-          onChange={props.handleChange(props.id)}
-          margin="normal"
-          error={isError(props)}
-          helperText={createHelperText(props)}
-        />
-      </Form_Line>
-    </Fragment>
+      <Input
+        id={props.id}
+        label={props.label}
+        value={props.value}
+        onChange={props.handleChange(props.id)}
+        margin="normal"
+        error={isError(props)}
+        helperText={createHelperText(props)}
+      />
   );
 };
 

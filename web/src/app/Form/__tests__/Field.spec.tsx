@@ -16,6 +16,7 @@ describe('Field', () => {
     const wrapper = shallow(<Field {...props} />);
     const allProps: any = wrapper.find('#from').props();
 
+    expect(allProps.error).toEqual(false);
     expect(allProps.helperText).toEqual('');
   });
 
@@ -24,6 +25,7 @@ describe('Field', () => {
     const wrapper = shallow(<Field {...props} />);
     const allProps: any = wrapper.find('#from').props();
 
+    expect(allProps.error).toEqual(true);
     expect(allProps.helperText).toEqual('Field cannot be empty');
   });
 });

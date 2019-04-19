@@ -7,6 +7,8 @@ import { calculateTotal } from '../../price/total';
 
 export type Item = { description: string; quantity: string; unitPrice: string; amount: string };
 
+export type ItemField = keyof Item;
+
 export type FormValues = {
   from: string;
   billTo: string;
@@ -18,6 +20,17 @@ export type FormValues = {
 };
 
 export type Label = keyof FormValues;
+// export type Label =
+//   | 'from'
+//   | 'billTo'
+//   | 'shipTo'
+//   | 'invoiceNumber'
+//   | 'invoiceDate'
+//   | 'dueDate'
+//   | 'description'
+//   | 'quantity'
+//   | 'unitPrice'
+//   | 'amount';
 
 export type FormProps = FormikProps<FormValues>;
 

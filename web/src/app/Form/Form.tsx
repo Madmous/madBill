@@ -5,6 +5,7 @@ import React, { ChangeEvent, Fragment } from 'react';
 import styled from 'styled-components';
 import { FormValues, Item, FormProps } from './index';
 import FieldComponent from './Field';
+import ItemField from './ItemField';
 
 const Form = styled.div`
   padding: 0.25em 1em;
@@ -23,7 +24,7 @@ const Grid = styled.div`
   grid-template-columns: 70% 30%;
 `;
 
-const Form_Line_Flex = styled(Form_Line)`
+export const Form_Line_Flex = styled(Form_Line)`
   flex: 1;
 `;
 
@@ -60,6 +61,8 @@ export default (props: Props) => {
   const handleChange = createHandleChange(props);
   const { items } = props.values;
 
+  console.log(props);
+
   return (
     <Form>
       <form
@@ -68,38 +71,46 @@ export default (props: Props) => {
           props.handleSubmit(e);
         }}
       >
-        <FieldComponent
-          id="from"
-          label="From"
-          error={props.errors.from}
-          value={props.values.from}
-          touched={props.touched.from}
-          handleChange={handleChange}
-        />
-        <FieldComponent
-          id="billTo"
-          label="Bill to"
-          error={props.errors.billTo}
-          value={props.values.billTo}
-          touched={props.touched.billTo}
-          handleChange={handleChange}
-        />
-        <FieldComponent
-          id="shipTo"
-          label="Ship to"
-          error={props.errors.shipTo}
-          value={props.values.shipTo}
-          touched={props.touched.shipTo}
-          handleChange={handleChange}
-        />
-        <FieldComponent
-          id="invoiceNumber"
-          label="Invoice number"
-          error={props.errors.invoiceNumber}
-          value={props.values.invoiceNumber}
-          touched={props.touched.invoiceNumber}
-          handleChange={handleChange}
-        />
+        <Form_Line>
+          <FieldComponent
+            id="from"
+            label="From"
+            error={props.errors.from}
+            value={props.values.from}
+            touched={props.touched.from}
+            handleChange={handleChange}
+          />
+        </Form_Line>
+        <Form_Line>
+          <FieldComponent
+            id="billTo"
+            label="Bill to"
+            error={props.errors.billTo}
+            value={props.values.billTo}
+            touched={props.touched.billTo}
+            handleChange={handleChange}
+          />
+        </Form_Line>
+        <Form_Line>
+          <FieldComponent
+            id="shipTo"
+            label="Ship to"
+            error={props.errors.shipTo}
+            value={props.values.shipTo}
+            touched={props.touched.shipTo}
+            handleChange={handleChange}
+          />
+        </Form_Line>
+        <Form_Line>
+          <FieldComponent
+            id="invoiceNumber"
+            label="Invoice number"
+            error={props.errors.invoiceNumber}
+            value={props.values.invoiceNumber}
+            touched={props.touched.invoiceNumber}
+            handleChange={handleChange}
+          />
+        </Form_Line>
         <Form_Line>
           <Input
             id="invoiceDate"
@@ -133,56 +144,53 @@ export default (props: Props) => {
         {items.map((item, index) => (
           <Fragment key={index}>
             <Form_Line>
-              <Input
-                id={`items[${index}].description`}
+              <ItemField
+                id={`description`}
                 label="Description"
                 value={item.description}
-                onChange={handleChange('items')}
-                margin="normal"
-                error={isItemError(props, index, 'description')}
-                helperText={createItemHelperText(props, index, 'description')}
+                index={index}
+                errors={props.errors.items}
+                touched={props.touched.items}
+                handleChange={handleChange}
               />
             </Form_Line>
             <Form_Line>
               <Form_Line_Flex_Margin>
-                <Input
-                  id={`items[${index}].quantity`}
+                <ItemField
+                  id={`quantity`}
                   label="Quantity"
-                  type="number"
-                  InputProps={{ inputProps: { min: 1 } }}
                   value={item.quantity}
-                  onChange={handleChange('items')}
-                  margin="normal"
-                  error={isItemError(props, index, 'quantity')}
-                  helperText={createItemHelperText(props, index, 'quantity')}
+                  index={index}
+                  type="number"
+                  errors={props.errors.items}
+                  touched={props.touched.items}
+                  handleChange={handleChange}
                 />
               </Form_Line_Flex_Margin>
               <Form_Line_Flex_Margin>
-                <Input
-                  id={`items[${index}].unitPrice`}
+                <ItemField
+                  id={`unitPrice`}
                   label="Unit price"
-                  type="number"
-                  InputProps={{ inputProps: { min: 1 } }}
                   value={item.unitPrice}
-                  onChange={handleChange('items')}
-                  margin="normal"
-                  error={isItemError(props, index, 'unitPrice')}
-                  helperText={createItemHelperText(props, index, 'unitPrice')}
+                  index={index}
+                  type="number"
+                  errors={props.errors.items}
+                  touched={props.touched.items}
+                  handleChange={handleChange}
                 />
               </Form_Line_Flex_Margin>
-              <Form_Line_Flex>
-                <Input
-                  id={`items[${index}].amount`}
+              <Form_Line_Flex_Margin>
+                <ItemField
+                  id={`amount`}
                   label="Amount"
-                  type="number"
-                  InputProps={{ inputProps: { min: 1 } }}
                   value={item.amount}
-                  onChange={handleChange('items')}
-                  margin="normal"
-                  error={isItemError(props, index, 'amount')}
-                  helperText={createItemHelperText(props, index, 'amount')}
+                  index={index}
+                  type="number"
+                  errors={props.errors.items}
+                  touched={props.touched.items}
+                  handleChange={handleChange}
                 />
-              </Form_Line_Flex>
+              </Form_Line_Flex_Margin>
             </Form_Line>
             <div>
               <Button
@@ -192,7 +200,7 @@ export default (props: Props) => {
                 onClick={() => {
                   const m = [...items];
                   m.splice(index, 1);
-                  props.setFieldValue('items', m, false);
+                  props.setFieldValue('items', m, true);
                 }}
               >
                 Remove item
@@ -209,7 +217,7 @@ export default (props: Props) => {
             color="primary"
             onClick={() => {
               const nextItems = props.values.items.concat({ description: '', quantity: '', unitPrice: '', amount: '' });
-              props.setFieldValue('items', nextItems, false);
+              props.setFieldValue('items', nextItems, true);
             }}
           >
             Add new item
@@ -265,4 +273,5 @@ const createItemHelperText = (props: Props, index: number, field: Field): string
   return itemField;
 };
 
-const isItemError = (props: Props, index: number, field: Field): boolean => Boolean(createItemHelperText(props, index, field));
+const isItemError = (props: Props, index: number, field: Field): boolean =>
+  Boolean(createItemHelperText(props, index, field));
