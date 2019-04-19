@@ -1,9 +1,12 @@
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import express from 'express';
+import helmet from 'helmet';
 import Joi from 'joi';
 
 const router = express();
+
+router.use(helmet());
 
 router.use(cors({ origin: true, credentials: true }));
 
