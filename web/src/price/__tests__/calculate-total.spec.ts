@@ -1,4 +1,4 @@
-import { calculateTotal } from '../calculate-total';
+import { calculateTotal } from '../total';
 
 describe('calculate-total', () => {
   it('should take into account the tax', () => {

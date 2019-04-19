@@ -3,7 +3,7 @@ import { Formik, FormikProps, FormikActions } from 'formik';
 import * as Yup from 'yup';
 
 import Form from './Form';
-import { calculateTotal } from '../../price/calculate-total';
+import { calculateTotal } from '../../price/total';
 
 export type Item = { description: string; quantity: string; unitPrice: string; amount: string };
 
