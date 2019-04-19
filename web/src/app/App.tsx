@@ -1,5 +1,5 @@
 import React from 'react';
-import Form from './Form.1';
+import Form from './Form';
 
 export default () => {
   return <Form />;
