@@ -1,5 +1,5 @@
-import router from "./index";
-import logger from "./logger";
+import router from './index';
+import logger from './logger';
 
 const port = process.env.PORT || 8080;
 
