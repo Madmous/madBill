@@ -10,9 +10,11 @@
     "pre-push": "^0.1.1"
   },
   "scripts": {
-    "lint": "cd web && yarn lint"
+    "lint-web": "cd web && yarn lint",
+    "lint-server": "cd server && yarn lint"
   },
   "pre-push": [
-    "lint"
+    "lint-web",
+    "lint-server"
   ]
 }
