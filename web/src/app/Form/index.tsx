@@ -1,11 +1,10 @@
-import React, { Component } from 'react';
-import { Formik, FormikProps, FormikActions } from 'formik';
-import * as Yup from 'yup';
 import axios from 'axios';
-
-import Auth from '../Auth/Auth';
-import Form from './Form';
+import { Formik, FormikActions, FormikProps } from 'formik';
+import React from 'react';
+import * as Yup from 'yup';
 import { calculateTotal } from '../../price/total';
+import Form from './Form';
+import Auth from '../../auth';
 
 export type Item = { description: string; quantity: string; unitPrice: string; amount: string };
 
@@ -22,17 +21,6 @@ export type FormValues = {
 };
 
 export type Label = keyof FormValues;
-// export type Label =
-//   | 'from'
-//   | 'billTo'
-//   | 'shipTo'
-//   | 'invoiceNumber'
-//   | 'invoiceDate'
-//   | 'dueDate'
-//   | 'description'
-//   | 'quantity'
-//   | 'unitPrice'
-//   | 'amount';
 
 export type FormProps = FormikProps<FormValues>;
 
@@ -65,7 +53,11 @@ const validationSchema = Yup.object({
     .min(1, 'Minimum of 1 items'),
 });
 
-export default (props: any) => {
+type Props = {
+  auth: Auth;
+};
+
+export default (props: Props) => {
   if (!props.auth.isAuthenticated()) {
     props.auth.login();
   }

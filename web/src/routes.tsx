@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Router } from 'react-router-dom';
 import Form from './app/Form';
 import Callback from './app/Callback/Callback';
-import Auth from './auth/Auth';
+import Auth from './auth';
 import App from './app/App';
 
 import history from './history';
@@ -18,7 +18,7 @@ const handleAuthentication = (prop: any) => {
 export default () => (
   <Router history={history}>
     <div>
-      <Route path="/invoice" render={props => <Form auth={auth} {...props} />} />
+      <Route path="/invoice" render={props => <Form auth={auth} />} />
       <Route path="/" render={props => <App auth={auth} {...props} />} />
       <Route
         path="/callback"

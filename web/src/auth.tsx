@@ -1,6 +1,6 @@
 import auth0, { WebAuth, Auth0DecodedHash } from 'auth0-js';
-import history from '../history';
-import getVariableOrThrow from '../get-env-variable';
+import history from './history';
+import getVariableOrThrow from './get-env-variable';
 
 export default class Auth {
   accessToken: string | null;
