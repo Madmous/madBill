@@ -12,8 +12,4 @@ export default (router: Router) => {
     validatePayload,
     invoiceResponseHandler
   );
-
-  router.get('/authorized', (_,res) => {
-    res.send('Secured Resource');
-  });
 };

@@ -26,7 +26,7 @@ const aPayload = (props: any) => {
   };
 };
 
-describe('POST /save-invoice', () => {
+describe.skip('POST /save-invoice', () => {
   [{}, aPayload({ from: 2 })].forEach(payload => {
     it('should not work when payload is either missing or not correct', done => {
       request(startServer)
