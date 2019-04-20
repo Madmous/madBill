@@ -1,5 +1,5 @@
-import React from 'react';
 import { shallow } from 'enzyme';
+import React from 'react';
 
 import Field, { Props } from '../Field';
 
@@ -32,10 +32,10 @@ describe('Field', () => {
 
 const informationProps = (props: Partial<Props>): Props => {
   const defaultProps: Props = {
+    handleChange: () => () => {},
     id: 'from',
     label: 'From',
     value: 'Dakar',
-    handleChange: () => () => {},
   };
 
   return {

@@ -1,11 +1,12 @@
 import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
 import Divider from '@material-ui/core/Divider';
+import TextField from '@material-ui/core/TextField';
 import React, { ChangeEvent, Fragment } from 'react';
 import styled from 'styled-components';
-import { FormValues, Item, FormProps } from './index';
+
 import FieldComponent from './Field';
 import ItemField from './ItemField';
+import { FormProps, FormValues, Item } from './index';
 
 const Form = styled.div`
   padding: 0.25em 1em;
@@ -48,7 +49,9 @@ const FocusedText_Right = styled(FocusedText)`
 type Props = FormProps & { total: number };
 type Field = keyof Item;
 
-export type HandleChange = (field: keyof FormValues) => (event: ChangeEvent<HTMLTextAreaElement>) => void;
+export type HandleChange = (
+  field: keyof FormValues
+) => (event: ChangeEvent<HTMLTextAreaElement>) => void;
 
 type CreateHandleChange = (props: Props) => HandleChange;
 
@@ -59,6 +62,9 @@ const createHandleChange: CreateHandleChange = props => field => event => {
 
 export default (props: Props) => {
   const handleChange = createHandleChange(props);
+  const labelProps = {
+    shrink: true,
+  };
   const { items } = props.values;
 
   return (
@@ -71,8 +77,8 @@ export default (props: Props) => {
       >
         <Form_Line>
           <FieldComponent
-            id="from"
-            label="From"
+            id='from'
+            label='From'
             error={props.errors.from}
             value={props.values.from}
             touched={props.touched.from}
@@ -81,8 +87,8 @@ export default (props: Props) => {
         </Form_Line>
         <Form_Line>
           <FieldComponent
-            id="billTo"
-            label="Bill to"
+            id='billTo'
+            label='Bill to'
             error={props.errors.billTo}
             value={props.values.billTo}
             touched={props.touched.billTo}
@@ -91,8 +97,8 @@ export default (props: Props) => {
         </Form_Line>
         <Form_Line>
           <FieldComponent
-            id="shipTo"
-            label="Ship to"
+            id='shipTo'
+            label='Ship to'
             error={props.errors.shipTo}
             value={props.values.shipTo}
             touched={props.touched.shipTo}
@@ -101,8 +107,8 @@ export default (props: Props) => {
         </Form_Line>
         <Form_Line>
           <FieldComponent
-            id="invoiceNumber"
-            label="Invoice number"
+            id='invoiceNumber'
+            label='Invoice number'
             error={props.errors.invoiceNumber}
             value={props.values.invoiceNumber}
             touched={props.touched.invoiceNumber}
@@ -111,30 +117,30 @@ export default (props: Props) => {
         </Form_Line>
         <Form_Line>
           <Input
-            id="invoiceDate"
-            label="Invoice date"
-            type="date"
-            InputLabelProps={{
-              shrink: true,
-            }}
+            id='invoiceDate'
+            label='Invoice date'
+            type='date'
+            InputLabelProps={labelProps}
             value={props.values.invoiceDate}
             onChange={handleChange('invoiceDate')}
-            margin="normal"
-            error={props.touched.invoiceDate && Boolean(props.errors.invoiceDate)}
-            helperText={props.touched.invoiceDate ? props.errors.invoiceDate : ''}
+            margin='normal'
+            error={
+              props.touched.invoiceDate && Boolean(props.errors.invoiceDate)
+            }
+            helperText={
+              props.touched.invoiceDate ? props.errors.invoiceDate : ''
+            }
           />
         </Form_Line>
         <Form_Line>
           <Input
-            id="dueDate"
-            label="Due date"
-            type="date"
-            InputLabelProps={{
-              shrink: true,
-            }}
+            id='dueDate'
+            label='Due date'
+            type='date'
+            InputLabelProps={labelProps}
             value={props.values.dueDate}
             onChange={handleChange('dueDate')}
-            margin="normal"
+            margin='normal'
             error={props.touched.dueDate && Boolean(props.errors.dueDate)}
             helperText={props.touched.dueDate ? props.errors.dueDate : ''}
           />
@@ -143,8 +149,8 @@ export default (props: Props) => {
           <Fragment key={index}>
             <Form_Line>
               <ItemField
-                id={`description`}
-                label="Description"
+                id='description'
+                label='Description'
                 value={item.description}
                 index={index}
                 errors={props.errors.items}
@@ -155,11 +161,11 @@ export default (props: Props) => {
             <Form_Line>
               <Form_Line_Flex_Margin>
                 <ItemField
-                  id={`quantity`}
-                  label="Quantity"
+                  id='quantity'
+                  label='Quantity'
                   value={item.quantity}
                   index={index}
-                  type="number"
+                  type='number'
                   errors={props.errors.items}
                   touched={props.touched.items}
                   handleChange={handleChange}
@@ -168,10 +174,10 @@ export default (props: Props) => {
               <Form_Line_Flex_Margin>
                 <ItemField
                   id={`unitPrice`}
-                  label="Unit price"
+                  label='Unit price'
                   value={item.unitPrice}
                   index={index}
-                  type="number"
+                  type='number'
                   errors={props.errors.items}
                   touched={props.touched.items}
                   handleChange={handleChange}
@@ -180,10 +186,10 @@ export default (props: Props) => {
               <Form_Line_Flex_Margin>
                 <ItemField
                   id={`amount`}
-                  label="Amount"
+                  label='Amount'
                   value={item.amount}
                   index={index}
-                  type="number"
+                  type='number'
                   errors={props.errors.items}
                   touched={props.touched.items}
                   handleChange={handleChange}
@@ -192,8 +198,8 @@ export default (props: Props) => {
             </Form_Line>
             <div>
               <Button
-                variant="contained"
-                color="secondary"
+                variant='contained'
+                color='secondary'
                 disabled={props.values.items.length === 1}
                 onClick={() => {
                   const m = [...items];
@@ -211,10 +217,15 @@ export default (props: Props) => {
         </Divider_Margin>
         <div>
           <Button
-            variant="contained"
-            color="primary"
+            variant='contained'
+            color='primary'
             onClick={() => {
-              const nextItems = props.values.items.concat({ description: '', quantity: '', unitPrice: '', amount: '' });
+              const nextItems = props.values.items.concat({
+                amount: '',
+                description: '',
+                quantity: '',
+                unitPrice: '',
+              });
               props.setFieldValue('items', nextItems, true);
             }}
           >
@@ -225,7 +236,12 @@ export default (props: Props) => {
           <Divider />
         </Divider_Margin>
         <div>
-          <Button type="submit" variant="contained" color="primary" disabled={!props.isValid}>
+          <Button
+            type='submit'
+            variant='contained'
+            color='primary'
+            disabled={!props.isValid}
+          >
             Save invoice
           </Button>
         </div>
@@ -241,7 +257,11 @@ export default (props: Props) => {
   );
 };
 
-const createItemHelperText = (props: Props, index: number, field: Field): string => {
+const createItemHelperText = (
+  props: Props,
+  index: number,
+  field: Field
+): string => {
   if (!props.touched.items) {
     return '';
   }

@@ -1,6 +1,6 @@
-import auth0, { WebAuth, Auth0DecodedHash } from 'auth0-js';
-import history from './history';
+import auth0, { Auth0DecodedHash, WebAuth } from 'auth0-js';
 import getVariableOrThrow from './get-env-variable';
+import history from './history';
 
 export default class Auth {
   accessToken: string | null;
@@ -10,8 +10,8 @@ export default class Auth {
 
   constructor() {
     this.auth0 = new auth0.WebAuth({
-      domain: getVariableOrThrow('REACT_APP_AUTH_DOMAIN'),
       clientID: getVariableOrThrow('REACT_APP_AUTH_CLIENT_ID'),
+      domain: getVariableOrThrow('REACT_APP_AUTH_DOMAIN'),
       redirectUri: getVariableOrThrow('REACT_APP_AUTH_CALLBACK'),
       responseType: 'token id_token',
       scope: 'openid',
@@ -23,7 +23,7 @@ export default class Auth {
 
   login = () => {
     this.auth0.authorize();
-  };
+  }
 
   handleAuthentication = () => {
     this.auth0.parseHash((err, authResult) => {
@@ -34,15 +34,15 @@ export default class Auth {
         alert(`Error: ${err.error}. Check the console for further details.`);
       }
     });
-  };
+  }
 
   getAccessToken = () => {
     return this.accessToken;
-  };
+  }
 
   getIdToken = () => {
     return this.idToken;
-  };
+  }
 
   setSession(authResult: Auth0DecodedHash) {
     localStorage.setItem('isLoggedIn', 'true');
@@ -79,7 +79,7 @@ export default class Auth {
         console.error(err);
       }
     });
-  };
+  }
 
   logout = () => {
     this.accessToken = null;
@@ -91,10 +91,9 @@ export default class Auth {
     this.auth0.logout({
       returnTo: window.location.origin,
     });
-  };
+  }
 
   isAuthenticated = () => {
-    let expiresAt = this.expiresAt;
-    return new Date().getTime() < expiresAt;
-  };
+    return new Date().getTime() < this.expiresAt;
+  }
 }

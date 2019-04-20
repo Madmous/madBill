@@ -2,9 +2,10 @@ import axios from 'axios';
 import { Formik, FormikActions, FormikProps } from 'formik';
 import React from 'react';
 import * as Yup from 'yup';
+
+import Auth from '../../auth';
 import { calculateTotal } from '../../price/total';
 import Form from './Form';
-import Auth from '../../auth';
 
 export type Item = { description: string; quantity: string; unitPrice: string; amount: string };
 
@@ -25,32 +26,32 @@ export type Label = keyof FormValues;
 export type FormProps = FormikProps<FormValues>;
 
 const initialValues: FormValues = {
-  from: '',
   billTo: '',
-  shipTo: '',
-  invoiceNumber: '',
-  invoiceDate: '',
   dueDate: '',
+  from: '',
+  invoiceDate: '',
+  invoiceNumber: '',
   items: [{ description: '', quantity: '', unitPrice: '', amount: '' }],
+  shipTo: '',
 };
 
 const validationSchema = Yup.object({
-  from: Yup.string().required('From is required'),
   billTo: Yup.string().required('Bill to is required'),
-  shipTo: Yup.string().required('Ship to is required'),
-  invoiceNumber: Yup.string().required('Invoice number is required'),
-  invoiceDate: Yup.string().required('Invoice date is required'),
   dueDate: Yup.string().required('Due date is required'),
+  from: Yup.string().required('From is required'),
+  invoiceDate: Yup.string().required('Invoice date is required'),
+  invoiceNumber: Yup.string().required('Invoice number is required'),
   items: Yup.array()
     .of(
       Yup.object().shape({
-        quantity: Yup.string().required('Quantity is required'),
-        description: Yup.string().required('Description is required'),
-        unitPrice: Yup.string().required('Unit price is required'),
         amount: Yup.string().required('Amount is required'),
+        description: Yup.string().required('Description is required'),
+        quantity: Yup.string().required('Quantity is required'),
+        unitPrice: Yup.string().required('Unit price is required'),
       })
     )
     .min(1, 'Minimum of 1 items'),
+  shipTo: Yup.string().required('Ship to is required'),
 });
 
 type Props = {
@@ -65,10 +66,10 @@ export default (props: Props) => {
   return (
     <Formik
       initialValues={initialValues}
-      render={(props: FormProps) => {
-        const total = calculateTotal(props.values.items);
+      render={(formFrops: FormProps) => {
+        const total = calculateTotal(formFrops.values.items);
 
-        return <Form {...props} total={total} />;
+        return <Form {...formFrops} total={total} />;
       }}
       validationSchema={validationSchema}
       onSubmit={async (values: FormValues, _: FormikActions<FormValues>) => {

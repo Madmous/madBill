@@ -18,7 +18,7 @@ export default (props: Props) => {
         label={props.label}
         value={props.value}
         onChange={props.handleChange(props.id)}
-        margin="normal"
+        margin='normal'
         error={isError(props)}
         helperText={createHelperText(props)}
       />

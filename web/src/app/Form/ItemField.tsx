@@ -1,16 +1,17 @@
-import React, { Fragment } from 'react';
 import { FormikErrors, FormikTouched } from 'formik';
-import { Form_Line_Flex, HandleChange, Input } from './Form';
+import React from 'react';
+
+import { HandleChange, Input } from './Form';
 import { Item, ItemField } from './index';
 
 export type Props = {
+  errors?: Array<FormikErrors<Item> | undefined> | undefined;
   id: ItemField;
   label: string;
   value: string;
   index: number;
   type?: 'number';
-  errors?: (FormikErrors<Item> | undefined)[] | undefined;
-  touched?: (FormikTouched<Item> | undefined)[] | undefined;
+  touched?: Array<FormikTouched<Item> | undefined> | undefined;
   handleChange: HandleChange;
 };
 
@@ -22,7 +23,7 @@ export default (props: Props) => {
       value={props.value}
       InputProps={{ inputProps: { min: 1 } }}
       onChange={props.handleChange('items')}
-      margin="normal"
+      margin='normal'
       type={props.type || 'text'}
       error={isItemError(props)}
       helperText={createItemHelperText(props)}

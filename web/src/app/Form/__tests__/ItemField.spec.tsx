@@ -1,5 +1,5 @@
-import React from 'react';
 import { shallow } from 'enzyme';
+import React from 'react';
 
 import ItemField, { Props } from '../ItemField';
 
@@ -22,9 +22,9 @@ describe('ItemField', () => {
 
   it('helper text should be filled when the user clears a field already filled', () => {
     const props = informationProps({
-      value: '',
-      touched: [{ description: true }],
       errors: [{ description: 'Description cannot be empty' }],
+      touched: [{ description: true }],
+      value: '',
     });
     const wrapper = shallow(<ItemField {...props} />);
     const allProps: any = wrapper.find({ label: props.label }).props();
@@ -36,11 +36,11 @@ describe('ItemField', () => {
 
 const informationProps = (props: Partial<Props>): Props => {
   const defaultProps: Props = {
+    handleChange: () => () => {},
     id: 'description',
+    index: 0,
     label: 'Description',
     value: 'Mango',
-    index: 0,
-    handleChange: () => () => {},
   };
 
   return {

@@ -1,0 +1,30 @@
+{
+  "extends": [
+    "tslint:recommended",
+    "tslint-react"
+  ],
+  "rules": {
+    "interface-over-type-literal": false,
+    "trailing-comma": [
+      false
+    ],
+    "quotemark": [true, "single"],
+    "member-access": false,
+    "ordered-imports": [
+      true,
+      {
+        "import-sources-order": "lowercase-last",
+        "named-imports-order": "lowercase-first"
+      }
+    ],
+    // This rule is here for now because of https://github.com/palantir/tslint-react/issues/120
+    "variable-name": false,
+    "rrow-parens": false,
+    "jsx-no-multiline-js": false,
+    "jsx-wrap-multiline": false,
+    "arrow-parens": false,
+    "jsx-no-lambda": false,
+    "no-empty": false,
+    "no-console": false
+  }
+}
