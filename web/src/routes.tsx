@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Router } from 'react-router-dom';
 import Form from './app/Form';
 import Callback from './app/Callback/Callback';
-import Auth from './app/Auth/Auth';
+import Auth from './auth/Auth';
 import App from './app/App';
 
 import history from './history';

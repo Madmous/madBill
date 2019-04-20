@@ -1,15 +1,11 @@
 import React, { Component } from 'react';
 
 class App extends Component<any, any> {
-  goTo(route: string) {
-    this.props.history.replace(`/${route}`);
-  }
-
-  login() {
+  login = () => {
     this.props.auth.login();
   }
 
-  logout() {
+  logout = () => {
     this.props.auth.logout();
   }
 
@@ -26,8 +22,8 @@ class App extends Component<any, any> {
 
     return (
       <div>
-        {!isAuthenticated() && <div onClick={this.login.bind(this)}>Log In</div>}
-        {isAuthenticated() && <div onClick={this.logout.bind(this)}>Log Out</div>}
+        {!isAuthenticated() && <div onClick={this.login}>Log In</div>}
+        {isAuthenticated() && <div onClick={this.logout}>Log Out</div>}
       </div>
     );
   }
