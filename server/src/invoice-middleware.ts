@@ -3,6 +3,8 @@ import jwt from 'express-jwt';
 import Joi, { Schema } from 'joi';
 import jwksRsa from 'jwks-rsa';
 
+import config from '../config';
+
 export default (schema: Schema) => (
   req: Request,
   res: Response,
@@ -18,17 +20,14 @@ export default (schema: Schema) => (
   });
 };
 
-const YOUR_AUTH0_DOMAIN = 'madmous-dev.eu.auth0.com';
-const YOUR_AUTH0_CLIENT_ID = 'o241Sx0W2TILGrPVXzplFXwOcGLIkyG6';
-
 export const checkJwt = jwt({
   algorithms: ['RS256'],
-  audience: YOUR_AUTH0_CLIENT_ID,
-  issuer: `https://${YOUR_AUTH0_DOMAIN}/`,
+  audience: config.auth.clientId,
+  issuer: `https://${config.auth.domain}/`,
   secret: jwksRsa.expressJwtSecret({
     cache: true,
     jwksRequestsPerMinute: 5,
-    jwksUri: `https://${YOUR_AUTH0_DOMAIN}/.well-known/jwks.json`,
+    jwksUri: `https://${config.auth.domain}/.well-known/jwks.json`,
     rateLimit: true,
   }),
 });
