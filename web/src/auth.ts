@@ -17,7 +17,7 @@ export class Auth {
       domain: getVariableOrThrow('REACT_APP_AUTH_DOMAIN'),
       redirectUri: getVariableOrThrow('REACT_APP_AUTH_CALLBACK'),
       responseType: 'id_token',
-      scope: 'openid profile',
+      scope: 'openid email',
     });
   }
 
