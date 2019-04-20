@@ -4,6 +4,7 @@ import { Router } from 'express';
 import helmet from 'helmet';
 import morgan from 'morgan';
 
+import { checkJwt } from './invoice-middleware';
 
 export default (router: Router) => {
   router.use(cors({ origin: '*' }));
@@ -14,4 +15,6 @@ export default (router: Router) => {
 
   router.use(bodyParser.urlencoded({ extended: true }));
   router.use(bodyParser.json());
+
+  router.use(checkJwt);
 };

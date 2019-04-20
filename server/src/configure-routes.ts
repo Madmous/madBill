@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import invoiceResponseHandler from './invoice-handler';
-import createValidatePayload from './invoice-middleware';
+import createValidatePayload, { checkJwt } from './invoice-middleware';
 import schema from './invoice-schema';
 
 const validatePayload = createValidatePayload(schema);
@@ -8,7 +8,12 @@ const validatePayload = createValidatePayload(schema);
 export default (router: Router) => {
   router.post(
     '/save-invoice',
+    checkJwt,
     validatePayload,
     invoiceResponseHandler
   );
+
+  router.get('/authorized', (_,res) => {
+    res.send('Secured Resource');
+  });
 };
