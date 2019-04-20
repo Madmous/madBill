@@ -1,29 +1,57 @@
 import React, { Component } from 'react';
+import { Route } from 'react-router-dom';
 
-class App extends Component<any, any> {
-  login = () => {
-    this.props.auth.login();
+import auth, { Auth } from '../auth';
+import Callback from './Callback';
+import Form from './Form';
+import NavBar from './NavBar';
+import SecuredRoute from './SecuredRoute';
+
+type Props = {
+  auth: Auth;
+};
+
+type State = {
+  checkingSession: boolean;
+};
+
+class App extends Component<Props, State> {
+  constructor(props: Props) {
+    super(props);
+    this.state = {
+      checkingSession: true,
+    };
   }
 
-  logout = () => {
-    this.props.auth.logout();
-  }
+  async componentDidMount() {
+    if (window.location.pathname === '/callback') {
+      this.setState({ checkingSession: false });
+      return;
+    }
 
-  componentDidMount() {
-    const { renewSession } = this.props.auth;
-
-    if (localStorage.getItem('isLoggedIn') === 'true') {
-      renewSession();
+    try {
+      await this.props.auth.silentAuth();
+      this.forceUpdate();
+    } catch (err) {
+      if (err.error !== 'login_required') {
+        console.log(err.error);
+      }
+    } finally {
+      this.setState({ checkingSession: false });
     }
   }
 
   render() {
-    const { isAuthenticated } = this.props.auth;
-
     return (
       <div>
-        {!isAuthenticated() && <div onClick={this.login}>Log In</div>}
-        {isAuthenticated() && <div onClick={this.logout}>Log Out</div>}
+        <NavBar />
+        <Route
+          path='/'
+          auth={auth}
+          checkingSession={this.state.checkingSession}
+          component={Form}
+        />
+        <Route path='/callback' component={Callback} />
       </div>
     );
   }

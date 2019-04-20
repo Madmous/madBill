@@ -1,4 +1,21 @@
-import CircularProgress from '@material-ui/core/CircularProgress';
-import React from 'react';
+import React, { Component } from 'react';
+import { withRouter, RouteComponentProps } from 'react-router';
 
-export default () => <CircularProgress />;
+import { Auth } from '../../auth';
+
+type Props = RouteComponentProps<{}> & {
+  auth: Auth;
+};
+
+class Callback extends Component<Props, {}> {
+  async componentDidMount() {
+    await this.props.auth.handleAuthentication();
+    this.props.history.replace('/');
+  }
+
+  render() {
+    return <p>Loading profile...</p>;
+  }
+}
+
+export default withRouter(Callback);

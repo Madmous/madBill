@@ -3,11 +3,16 @@ import { Formik, FormikActions, FormikProps } from 'formik';
 import React from 'react';
 import * as Yup from 'yup';
 
-import Auth from '../../auth';
+import auth, { Auth } from '../../auth';
 import { calculateTotal } from '../../price/total';
 import Form from './Form';
 
-export type Item = { description: string; quantity: string; unitPrice: string; amount: string };
+export type Item = {
+  description: string;
+  quantity: string;
+  unitPrice: string;
+  amount: string;
+};
 
 export type ItemField = keyof Item;
 
@@ -58,9 +63,9 @@ type Props = {
   auth: Auth;
 };
 
-export default (props: Props) => {
+const Formikfied = (props: Props) => {
   if (!props.auth.isAuthenticated()) {
-    props.auth.login();
+    return null;
   }
 
   return (
@@ -73,10 +78,22 @@ export default (props: Props) => {
       }}
       validationSchema={validationSchema}
       onSubmit={async (values: FormValues, _: FormikActions<FormValues>) => {
-        const res = await axios.post(`${process.env.REACT_APP_SERVER_URL}/save-invoice`, values);
+        try {
+          const res = await axios.post(
+            `${process.env.REACT_APP_SERVER_URL}/save-invoice`,
+            values,
+            {
+              headers: { Authorization: `Bearer ${props.auth.getIdToken()}` },
+            }
+          );
 
-        alert(res.status);
+          alert(res.status);
+        } catch (e) {
+          alert(e.message);
+        }
       }}
     />
   );
 };
+
+export default () => <Formikfied auth={auth} />;
