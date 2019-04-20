@@ -12,7 +12,7 @@
   "scripts": {
     "lint": "cd web && yarn lint"
   },
-  "pre-commit": [
+  "pre-push": [
     "lint"
   ]
 }
