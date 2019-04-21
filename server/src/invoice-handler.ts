@@ -1,7 +1,6 @@
-import axios from 'axios';
 import { Request, Response } from 'express';
 
-export default async (req: Request, res: Response) => {
+export default async (_: Request, res: Response) => {
   res.setHeader('Content-Type', 'application/json');
 
   // console.log(req.user.email);

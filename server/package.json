@@ -4,7 +4,7 @@
   "description": "",
   "main": "src/server.ts",
   "scripts": {
-    "lint": "tslint -c tslint.json 'src/**/*.ts' --format verbose",
+    "lint": "tslint --project tsconfig.json --config tslint.json",
     "build": "rm -rf build && tsc",
     "start": "NODE_ENV=production node build/server.js",
     "start:dev": "NODE_ENV=development ts-node src/server.ts",
