@@ -7,7 +7,7 @@ const validatePayload = createValidatePayload(schema);
 
 export default (router: Router) => {
   router.post(
-    '/save-invoice',
+    '/create-invoice',
     checkJwt,
     validatePayload,
     invoiceResponseHandler

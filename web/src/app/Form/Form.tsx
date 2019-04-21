@@ -240,7 +240,6 @@ export default (props: Props) => {
             type='submit'
             variant='contained'
             color='primary'
-            disabled={!props.isValid}
           >
             Save invoice
           </Button>

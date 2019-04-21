@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter, RouteComponentProps } from 'react-router';
 
-import { Auth } from '../../auth';
+import { Auth } from '../../auth/Auth';
 
 type Props = RouteComponentProps<{}> & {
   auth: Auth;
@@ -9,7 +9,7 @@ type Props = RouteComponentProps<{}> & {
 
 class Callback extends Component<Props, {}> {
   async componentDidMount() {
-    await this.props.auth.handleAuthentication();
+    await this.props.auth.handleAuthentication(window.location.hash);
     this.props.history.replace('/');
   }
 

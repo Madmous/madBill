@@ -3,7 +3,7 @@ import { Formik, FormikActions, FormikProps } from 'formik';
 import React from 'react';
 import * as Yup from 'yup';
 
-import auth, { Auth } from '../../auth';
+import auth, { Auth } from '../../auth/Auth';
 import { calculateTotal } from '../../price/total';
 import Form from './Form';
 
@@ -64,10 +64,6 @@ type Props = {
 };
 
 const Formikfied = (props: Props) => {
-  if (!props.auth.isAuthenticated()) {
-    return null;
-  }
-
   return (
     <Formik
       initialValues={initialValues}
@@ -80,7 +76,7 @@ const Formikfied = (props: Props) => {
       onSubmit={async (values: FormValues, _: FormikActions<FormValues>) => {
         try {
           const res = await axios.post(
-            `${process.env.REACT_APP_SERVER_URL}/save-invoice`,
+            `${process.env.REACT_APP_SERVER_URL}/create-invoice`,
             values,
             {
               headers: { Authorization: `Bearer ${props.auth.getIdToken()}` },

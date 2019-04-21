@@ -2,8 +2,7 @@ import React from 'react';
 import { withRouter, RouteComponentProps } from 'react-router';
 import { Link } from 'react-router-dom';
 
-import { Auth } from '../../auth';
-import Menu from './Menu';
+import { Auth } from '../../auth/Auth';
 
 type Props = RouteComponentProps<{}> & {
   auth: Auth;
@@ -23,7 +22,7 @@ const NavBar = (props: Props) => {
       )}
       {props.auth.isAuthenticated() && (
         <div>
-          <label>{props.auth.getProfile().name}</label>
+          <label>ToDo</label>
           <button
             onClick={() => {
               signOut();
