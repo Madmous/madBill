@@ -16,7 +16,7 @@
     "typescript": "3.4.3"
   },
   "scripts": {
-    "lint": "tslint -c tslint.json 'src/**/*.ts{,x}' --format verbose",
+    "lint": "tslint --project tsconfig.json --config tslint.json",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
