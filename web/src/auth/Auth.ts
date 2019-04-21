@@ -9,6 +9,7 @@ export class Auth {
       getVariableOrThrow('REACT_APP_AUTH_CLIENT_ID'),
       getVariableOrThrow('REACT_APP_AUTH_DOMAIN'),
       {
+        allowShowPassword: true,
         auth: {
           audience: `https://${getVariableOrThrow(
             'REACT_APP_AUTH_DOMAIN'
@@ -21,6 +22,7 @@ export class Auth {
           sso: false,
         },
         container: 'root',
+        socialButtonStyle: 'small',
       }
     );
   }
