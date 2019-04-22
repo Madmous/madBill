@@ -11,19 +11,17 @@ export type Props = {
   handleChange: HandleChange;
 };
 
-export default (props: Props) => {
-  return (
-      <Input
-        id={props.id}
-        label={props.label}
-        value={props.value}
-        onChange={props.handleChange(props.id)}
-        margin='normal'
-        error={isError(props)}
-        helperText={createHelperText(props)}
-      />
-  );
-};
+export default (props: Props) => (
+  <Input
+    id={props.id}
+    label={props.label}
+    value={props.value}
+    onChange={props.handleChange(props.id)}
+    margin='normal'
+    error={isError(props)}
+    helperText={createHelperText(props)}
+  />
+);
 
 const createHelperText = (props: Props): string => {
   if (!props.touched) {

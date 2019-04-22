@@ -16,24 +16,23 @@ export type Props = {
   handleChange: HandleChange;
 };
 
-export default (props: Props) => {
-  return (
-    <Input
-      id={`items[${props.index}].${props.id}`}
-      label={props.label}
-      value={props.value}
-      InputProps={{ inputProps: { min: 1 } }}
-      onChange={props.handleChange('items')}
-      margin='normal'
-      type={props.type || 'text'}
-      disabled={props.disabled || false}
-      error={isItemError(props)}
-      helperText={createItemHelperText(props)}
-    />
-  );
-};
+export default (props: Props) => (
+  <Input
+    id={`items[${props.index}].${props.id}`}
+    label={props.label}
+    value={props.value}
+    InputProps={{ inputProps: { min: 1 } }}
+    onChange={props.handleChange('items')}
+    margin='normal'
+    type={props.type || 'text'}
+    disabled={props.disabled || false}
+    error={isItemError(props)}
+    helperText={createItemHelperText(props)}
+  />
+);
 
-const isItemError = (props: Props): boolean => Boolean(createItemHelperText(props));
+const isItemError = (props: Props): boolean =>
+  Boolean(createItemHelperText(props));
 
 const createItemHelperText = (props: Props): string => {
   if (!props.touched) {
