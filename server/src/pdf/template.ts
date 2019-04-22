@@ -54,6 +54,7 @@ const template = (formValues: FormValues) => `
       background: #eee;
       border-bottom: 1px solid #ddd;
       font-weight: bold;
+      -webkit-print-color-adjust: exact;
     }
 
     .invoice-box table tr.details td {
