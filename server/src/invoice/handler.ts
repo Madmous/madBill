@@ -12,24 +12,20 @@ export default async (_: Request, res: Response) => {
   const { validationError } = res.locals;
 
   if (validationError) {
-    res
-      .set({
-        'Content-Type': 'application/json',
-      })
-      .status(400)
-      .send({
-        message: validationError,
-      });
+    res.status(400).send({
+      message: validationError,
+    });
 
     return;
   }
 
   const pdf = await create(template);
 
-  res.set({
-    'Content-Length': pdf.length,
-    'Content-Type': 'application/pdf',
-  });
-
-  res.status(200).send(pdf);
+  res
+    .set({
+      'Content-Length': pdf.length,
+      'Content-Type': 'application/pdf',
+    })
+    .status(200)
+    .send(pdf);
 };
