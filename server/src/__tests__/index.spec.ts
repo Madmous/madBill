@@ -11,7 +11,6 @@ const aPayload = (props: any) => {
     invoiceNumber: 'AS33',
     items: [
       {
-        amount: 1,
         description: 'mango',
         quantity: 1,
         unitPrice: 1,

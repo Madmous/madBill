@@ -1,8 +1,11 @@
 import { calculateTotal } from '../total';
 
-describe('calculate-total', () => {
-  it('should take into account the tax', () => {
-    const items = [{ description: 'pencil', quantity: '1', amount: '1', unitPrice: '1' }];
-    expect(calculateTotal(items)).toEqual(1.2);
+describe('total', () => {
+  it('should calculate the amount of all items', () => {
+    const items = [
+      { description: 'videos', quantity: '2', amount: '1', unitPrice: '150' },
+      { description: 'recettes', quantity: '1', amount: '1', unitPrice: '50' },
+    ];
+    expect(calculateTotal(items)).toEqual(350);
   });
 });

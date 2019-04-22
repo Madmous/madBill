@@ -11,6 +11,7 @@ export type Props = {
   value: string;
   index: number;
   type?: 'number';
+  disabled?: boolean;
   touched?: Array<FormikTouched<Item> | undefined> | undefined;
   handleChange: HandleChange;
 };
@@ -25,6 +26,7 @@ export default (props: Props) => {
       onChange={props.handleChange('items')}
       margin='normal'
       type={props.type || 'text'}
+      disabled={props.disabled || false}
       error={isItemError(props)}
       helperText={createItemHelperText(props)}
     />

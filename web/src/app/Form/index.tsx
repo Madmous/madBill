@@ -12,7 +12,6 @@ export type Item = {
   description: string;
   quantity: string;
   unitPrice: string;
-  amount: string;
 };
 
 export type ItemField = keyof Item;
@@ -50,7 +49,7 @@ const initialValues: FormValues = {
   from: '',
   invoiceDate: '',
   invoiceNumber: '',
-  items: [{ description: '', quantity: '', unitPrice: '', amount: '' }],
+  items: [{ description: '', quantity: '', unitPrice: '' }],
   shipTo: '',
 };
 
@@ -63,7 +62,6 @@ const validationSchema = Yup.object({
   items: Yup.array()
     .of(
       Yup.object().shape({
-        amount: Yup.string().required('Amount is required'),
         description: Yup.string().required('Description is required'),
         quantity: Yup.string().required('Quantity is required'),
         unitPrice: Yup.string().required('Unit price is required'),

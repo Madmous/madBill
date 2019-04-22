@@ -4,6 +4,8 @@ import TextField from '@material-ui/core/TextField';
 import React, { ChangeEvent, Fragment } from 'react';
 import styled from 'styled-components';
 
+import { calculateAmount } from '../../price/amount';
+
 import FieldComponent from './Field';
 import ItemField from './ItemField';
 import { FormProps, FormValues, Item } from './index';
@@ -184,15 +186,13 @@ export default (props: Props) => {
                 />
               </Form_Line_Flex_Margin>
               <Form_Line_Flex_Margin>
-                <ItemField
-                  id={`amount`}
+                <Input
+                  id='amount'
                   label='Amount'
-                  value={item.amount}
-                  index={index}
+                  value={calculateAmount(item)}
+                  margin='normal'
                   type='number'
-                  errors={props.errors.items}
-                  touched={props.touched.items}
-                  handleChange={handleChange}
+                  disabled={true}
                 />
               </Form_Line_Flex_Margin>
             </Form_Line>
@@ -221,7 +221,6 @@ export default (props: Props) => {
             color='primary'
             onClick={() => {
               const nextItems = props.values.items.concat({
-                amount: '',
                 description: '',
                 quantity: '',
                 unitPrice: '',
@@ -236,11 +235,7 @@ export default (props: Props) => {
           <Divider />
         </Divider_Margin>
         <div>
-          <Button
-            type='submit'
-            variant='contained'
-            color='primary'
-          >
+          <Button type='submit' variant='contained' color='primary'>
             Save invoice
           </Button>
         </div>

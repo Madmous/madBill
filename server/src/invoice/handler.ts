@@ -2,12 +2,11 @@ import { Request, Response } from 'express';
 
 import create from '../pdf/create';
 
-import template from '../template';
+import template from '../pdf/template';
+import createFormValues from './create-form-values';
 
-export default async (_: Request, res: Response) => {
+export default async (req: Request, res: Response) => {
   res.setHeader('Content-Type', 'application/json');
-
-  // console.log(req.user.email);
 
   const { validationError } = res.locals;
 
@@ -19,7 +18,8 @@ export default async (_: Request, res: Response) => {
     return;
   }
 
-  const pdf = await create(template);
+  const formValues = createFormValues(req.body);
+  const pdf = await create(template(formValues));
 
   res
     .set({

@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import Joi from 'joi';
 
 const itemSchema = Joi.object().keys({
-  amount: Joi.number().required(),
+
   description: Joi.string().required(),
   quantity: Joi.number().required(),
   unitPrice: Joi.number().required(),

@@ -10,7 +10,8 @@
       false
     ],
     "quotemark": [true, "single"],
-    "eofline": true
+    "eofline": true,
+    "interface-over-type-literal": false
   },
   "rulesDirectory": []
 }
