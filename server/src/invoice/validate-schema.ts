@@ -1,3 +1,4 @@
+import { NextFunction, Request, Response } from 'express';
 import Joi from 'joi';
 
 const itemSchema = Joi.object().keys({
@@ -19,4 +20,13 @@ const schema = Joi.object().keys({
   shipTo: Joi.string().required(),
 });
 
-export default schema;
+export default (req: Request, res: Response, next: NextFunction) => {
+  Joi.validate(req.body, schema, (err, _) => {
+    if (err) {
+      res.locals.validationError = err.message;
+      next();
+    } else {
+      next();
+    }
+  });
+};

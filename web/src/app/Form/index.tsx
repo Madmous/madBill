@@ -1,9 +1,10 @@
-import axios from 'axios';
+import { AxiosResponse } from 'axios';
 import { Formik, FormikActions, FormikProps } from 'formik';
 import React from 'react';
 import * as Yup from 'yup';
 
 import auth, { Auth } from '../../auth/Auth';
+import saveInvoice, { SaveInvoice } from '../../invoice/save';
 import { calculateTotal } from '../../price/total';
 import Form from './Form';
 
@@ -29,6 +30,19 @@ export type FormValues = {
 export type Label = keyof FormValues;
 
 export type FormProps = FormikProps<FormValues>;
+
+const Formikfied = (props: Props) => {
+  return (
+    <Formik
+      initialValues={initialValues}
+      render={render}
+      validationSchema={validationSchema}
+      onSubmit={handleSubmit(props)}
+    />
+  );
+};
+
+export default () => <Formikfied saveInvoice={saveInvoice} auth={auth} />;
 
 const initialValues: FormValues = {
   billTo: '',
@@ -61,35 +75,36 @@ const validationSchema = Yup.object({
 
 type Props = {
   auth: Auth;
+  saveInvoice: SaveInvoice;
 };
 
-const Formikfied = (props: Props) => {
-  return (
-    <Formik
-      initialValues={initialValues}
-      render={(formFrops: FormProps) => {
-        const total = calculateTotal(formFrops.values.items);
+const render = (formFrops: FormProps) => {
+  const total = calculateTotal(formFrops.values.items);
 
-        return <Form {...formFrops} total={total} />;
-      }}
-      validationSchema={validationSchema}
-      onSubmit={async (values: FormValues, _: FormikActions<FormValues>) => {
-        try {
-          const res = await axios.post(
-            `${process.env.REACT_APP_SERVER_URL}/create-invoice`,
-            values,
-            {
-              headers: { Authorization: `Bearer ${props.auth.getIdToken()}` },
-            }
-          );
-
-          alert(res.status);
-        } catch (e) {
-          alert(e.message);
-        }
-      }}
-    />
-  );
+  return <Form {...formFrops} total={total} />;
 };
 
-export default () => <Formikfied auth={auth} />;
+const handleSubmit = (props: Props) => (
+  values: FormValues,
+  _: FormikActions<FormValues>
+) => {
+  const token = props.auth.getIdToken();
+
+  if (token === null) {
+    throw new Error('Get a token first');
+  }
+
+  saveInvoice(token, values)
+    .then(downloadPdf)
+    .catch(err => {
+      alert(err.message);
+    });
+};
+
+const downloadPdf = (response: AxiosResponse<ArrayBuffer>) => {
+  const blob = new Blob([response.data], { type: 'application/pdf' });
+  const link = document.createElement('a');
+  link.href = window.URL.createObjectURL(blob);
+  link.download = `invoice.pdf`;
+  link.click();
+};
