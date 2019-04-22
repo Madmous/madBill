@@ -11,7 +11,11 @@ const router = express();
 
 router.use(cors({ origin: '*' }));
 
-router.use(morgan('combined'));
+router.use(
+  morgan(
+    ':remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:http-version" :status ":referrer" ":user-agent" - :response-time ms'
+  )
+);
 
 router.use(helmet());
 
