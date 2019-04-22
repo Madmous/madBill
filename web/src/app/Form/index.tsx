@@ -1,5 +1,6 @@
 import { AxiosResponse } from 'axios';
 import { Formik, FormikActions, FormikProps } from 'formik';
+import moment from 'moment';
 import React from 'react';
 import * as Yup from 'yup';
 
@@ -45,9 +46,9 @@ export default () => <Formikfied saveInvoice={saveInvoice} auth={auth} />;
 
 const initialValues: FormValues = {
   billTo: '',
-  dueDate: '',
+  dueDate: moment().add(30, 'days').format('YYYY-MM-DD'),
   from: '',
-  invoiceDate: '',
+  invoiceDate: moment().format('YYYY-MM-DD'),
   invoiceNumber: '',
   items: [{ description: '', quantity: '', unitPrice: '' }],
   shipTo: '',
