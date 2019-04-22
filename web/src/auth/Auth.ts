@@ -92,6 +92,7 @@ export class Auth {
     localStorage.removeItem('accessToken');
     localStorage.removeItem('profile');
     localStorage.removeItem('idToken');
+    localStorage.removeItem('expiresAt');
 
     this.auth0.logout({
       returnTo: window.location.origin,
