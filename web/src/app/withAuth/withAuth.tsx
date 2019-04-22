@@ -1,7 +1,7 @@
 import React, { ComponentType } from 'react';
 import { Redirect } from 'react-router-dom';
 
-import { Auth } from '../Auth';
+import { Auth } from '../../auth/Auth';
 
 export default (auth: Auth) => (Component: ComponentType<any>) => (
   props: any

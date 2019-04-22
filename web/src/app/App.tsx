@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
-import withAuth from '../auth/withAuth';
+import withAuth from './withAuth';
 
 import Callback from './Callback';
 import Form from './Form';
