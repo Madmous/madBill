@@ -10,7 +10,7 @@
   },
   "scripts": {
     "lint-web": "cd web && yarn lint",
-    "lint-server": "cd server && yarn lint"
+    "lint-server": "cd server && yarn lint && yarn test"
   },
   "pre-push": [
     "lint-web",

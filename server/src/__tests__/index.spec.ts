@@ -47,7 +47,7 @@ describe('POST /save-invoice', () => {
       .post('/save-invoice')
       .send(aPayload({}))
       .set('Accept', 'application/json')
-      .expect('Content-Type', /json/)
+      .expect('Content-Type', /pdf/)
       .expect(200)
       .then(_ => {
         done();
