@@ -1,10 +1,9 @@
 import React from 'react';
-import { withRouter, RouteComponentProps } from 'react-router';
 import { Redirect } from 'react-router-dom';
 
 import { Auth } from '../../auth/Auth';
 
-type Props = RouteComponentProps<{}> & {
+type Props = {
   auth: Auth;
 };
 
@@ -23,4 +22,4 @@ const Login = (props: Props) => {
     );
 };
 
-export default withRouter(Login);
+export default Login;
