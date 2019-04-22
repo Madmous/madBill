@@ -51,13 +51,7 @@ export class Auth {
   }
 
   getIdToken = () => {
-    const idToken = localStorage.getItem('idToken');
-
-    if (idToken === null) {
-      return null;
-    }
-
-    return idToken;
+    return localStorage.getItem('idToken');
   }
 
   getAccessToken = () => {
