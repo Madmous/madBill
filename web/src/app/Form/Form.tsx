@@ -8,17 +8,17 @@ import { calculateAmount } from '../../price/amount';
 
 import FieldComponent from './Field';
 import ItemField from './ItemField';
-import { FormProps, FormValues, Item } from './index';
+import { FormProps, FormValues } from './index';
 
 const Form = styled.div`
   padding: 0.25em 1em;
 `;
 
-export const Form_Line = styled.div`
+export const FormLine = styled.div`
   display: flex;
 `;
 
-const Divider_Margin = styled.div`
+const DividerMargin = styled.div`
   margin: 1em 0;
 `;
 
@@ -27,11 +27,11 @@ const Grid = styled.div`
   grid-template-columns: 70% 30%;
 `;
 
-export const Form_Line_Flex = styled(Form_Line)`
+export const FormLineFlex = styled(FormLine)`
   flex: 1;
 `;
 
-const Form_Line_Flex_Margin = styled(Form_Line_Flex)`
+const FormLineFlexMargin = styled(FormLineFlex)`
   margin-right: 1em;
 `;
 
@@ -49,7 +49,6 @@ const FocusedText_Right = styled(FocusedText)`
 `;
 
 type Props = FormProps & { total: number };
-type Field = keyof Item;
 
 export type HandleChange = (
   field: keyof FormValues
@@ -77,7 +76,7 @@ export default (props: Props) => {
           props.handleSubmit(e);
         }}
       >
-        <Form_Line>
+        <FormLine>
           <FieldComponent
             id='from'
             label='From'
@@ -86,8 +85,8 @@ export default (props: Props) => {
             touched={props.touched.from}
             handleChange={handleChange}
           />
-        </Form_Line>
-        <Form_Line>
+        </FormLine>
+        <FormLine>
           <FieldComponent
             id='billTo'
             label='Bill to'
@@ -96,8 +95,8 @@ export default (props: Props) => {
             touched={props.touched.billTo}
             handleChange={handleChange}
           />
-        </Form_Line>
-        <Form_Line>
+        </FormLine>
+        <FormLine>
           <FieldComponent
             id='shipTo'
             label='Ship to'
@@ -106,8 +105,8 @@ export default (props: Props) => {
             touched={props.touched.shipTo}
             handleChange={handleChange}
           />
-        </Form_Line>
-        <Form_Line>
+        </FormLine>
+        <FormLine>
           <FieldComponent
             id='invoiceNumber'
             label='Invoice number'
@@ -116,8 +115,8 @@ export default (props: Props) => {
             touched={props.touched.invoiceNumber}
             handleChange={handleChange}
           />
-        </Form_Line>
-        <Form_Line>
+        </FormLine>
+        <FormLine>
           <Input
             id='invoiceDate'
             label='Invoice date'
@@ -133,8 +132,8 @@ export default (props: Props) => {
               props.touched.invoiceDate ? props.errors.invoiceDate : ''
             }
           />
-        </Form_Line>
-        <Form_Line>
+        </FormLine>
+        <FormLine>
           <Input
             id='dueDate'
             label='Due date'
@@ -146,10 +145,10 @@ export default (props: Props) => {
             error={props.touched.dueDate && Boolean(props.errors.dueDate)}
             helperText={props.touched.dueDate ? props.errors.dueDate : ''}
           />
-        </Form_Line>
+        </FormLine>
         {items.map((item, index) => (
           <Fragment key={index}>
-            <Form_Line>
+            <FormLine>
               <ItemField
                 id='description'
                 label='Description'
@@ -159,9 +158,9 @@ export default (props: Props) => {
                 touched={props.touched.items}
                 handleChange={handleChange}
               />
-            </Form_Line>
-            <Form_Line>
-              <Form_Line_Flex_Margin>
+            </FormLine>
+            <FormLine>
+              <FormLineFlexMargin>
                 <ItemField
                   id='quantity'
                   label='Quantity'
@@ -172,8 +171,8 @@ export default (props: Props) => {
                   touched={props.touched.items}
                   handleChange={handleChange}
                 />
-              </Form_Line_Flex_Margin>
-              <Form_Line_Flex_Margin>
+              </FormLineFlexMargin>
+              <FormLineFlexMargin>
                 <ItemField
                   id={`unitPrice`}
                   label='Unit price'
@@ -184,8 +183,8 @@ export default (props: Props) => {
                   touched={props.touched.items}
                   handleChange={handleChange}
                 />
-              </Form_Line_Flex_Margin>
-              <Form_Line_Flex_Margin>
+              </FormLineFlexMargin>
+              <FormLineFlexMargin>
                 <Input
                   id='amount'
                   label='Amount'
@@ -194,8 +193,8 @@ export default (props: Props) => {
                   type='number'
                   disabled={true}
                 />
-              </Form_Line_Flex_Margin>
-            </Form_Line>
+              </FormLineFlexMargin>
+            </FormLine>
             <div>
               <Button
                 variant='contained'
@@ -212,9 +211,9 @@ export default (props: Props) => {
             </div>
           </Fragment>
         ))}
-        <Divider_Margin>
+        <DividerMargin>
           <Divider />
-        </Divider_Margin>
+        </DividerMargin>
         <div>
           <Button
             variant='contained'
@@ -231,9 +230,9 @@ export default (props: Props) => {
             Add new item
           </Button>
         </div>
-        <Divider_Margin>
+        <DividerMargin>
           <Divider />
-        </Divider_Margin>
+        </DividerMargin>
         <div>
           <Button type='submit' variant='contained' color='primary'>
             Save invoice
@@ -250,40 +249,3 @@ export default (props: Props) => {
     </Form>
   );
 };
-
-const createItemHelperText = (
-  props: Props,
-  index: number,
-  field: Field
-): string => {
-  if (!props.touched.items) {
-    return '';
-  }
-
-  const { items } = props.errors;
-
-  if (typeof items === 'string') {
-    return '';
-  }
-
-  if (items === undefined) {
-    return '';
-  }
-
-  const item = items[index];
-
-  if (item === undefined) {
-    return '';
-  }
-
-  const itemField = item[field];
-
-  if (itemField === undefined) {
-    return '';
-  }
-
-  return itemField;
-};
-
-const isItemError = (props: Props, index: number, field: Field): boolean =>
-  Boolean(createItemHelperText(props, index, field));
