@@ -44,7 +44,7 @@ const FocusedText = styled.p`
   font-weight: bold;
 `;
 
-const FocusedText_Right = styled(FocusedText)`
+const FocusedTextRight = styled(FocusedText)`
   text-align: right;
 `;
 
@@ -240,10 +240,10 @@ export default (props: Props) => {
         </div>
         <Grid>
           <FocusedText>TOTAL</FocusedText>
-          <FocusedText_Right>
+          <FocusedTextRight>
             <span>{props.total.toFixed(2)}</span>
             <span>€</span>
-          </FocusedText_Right>
+          </FocusedTextRight>
         </Grid>
       </form>
     </Form>
